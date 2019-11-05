@@ -24,25 +24,25 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	public Long userId;
+	private Long userId;
 	@Column(name = "username")
-	public String username;
+	private String username;
 	@Column(name = "password")
 	@JsonIgnore
-	public String userPassword;
+	private String userPassword;
 	@Column(name = "user_email")
-	public String email;
+	private String email;
 	@Column(name = "phone_number")
-	public String phoneNumber;
+	private String phoneNumber;
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@Column(name = "courses")
-	public List<Course> courseList;
+	private List<Course> courseList;
 	@Column(name = "delete_flag")
-	public String deleteFlag;
+	private String deleteFlag;
 	@Column(name = "role")
-	public String role;
+	private String role;
 	@Column(name = "active_status")
-	public Boolean active;
+	private Boolean active;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -83,6 +83,16 @@ public class User {
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+	
+	
+
+	public List<Course> getCourseList() {
+		return courseList;
+	}
+
+	public void setCourseList(List<Course> courseList) {
+		this.courseList = courseList;
 	}
 
 	public String getEmail() {
