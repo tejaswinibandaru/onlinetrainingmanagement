@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.onlinetraining.dto.Chapter;
 import com.cg.onlinetraining.dto.Course;
 import com.cg.onlinetraining.exception.OTMSException;
 import com.cg.onlinetraining.repository.CourseRepository;
@@ -46,6 +47,9 @@ public class CourseServiceImpl implements CourseService{
 		}
 		logger.info("Deleting the course...");
 		course.setDeleteFlag(1);
+		for(Chapter chapter:course.getChapterList()) {
+			chapter.setDeleteFlag(1);
+		}
 		logger.info("Deleted the course...");
 		return 1;
 	}

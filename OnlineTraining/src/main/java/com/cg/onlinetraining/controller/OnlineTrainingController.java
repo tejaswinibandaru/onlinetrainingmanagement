@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +79,43 @@ public class OnlineTrainingController {
 			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(chapters, HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/deletecourse")
+	@PreAuthorize(value = "hasRole('ADMIN')")
+	public ResponseEntity<?> deleteCourse(@RequestParam(value = "courseId") Long courseId){
+		try {
+			courseService.removeCourse(courseId);
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(new ResponseMessage("Course Deleted Successfully"), HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/deletechapter")
+	@PreAuthorize(value = "hasRole('ADMIN')")
+	public ResponseEntity<?> deleteChapter(@RequestParam(value = "chapterId") Long chapterId){
+		try {
+			chapterService.removeChapter(chapterId);
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(new ResponseMessage("Chapter Deleted Successfully"), HttpStatus.OK);
+	}
+	
+	
+	public ResponseEntity<?> updateChapter(@RequestParam(value = "chapterId") Long chapterId,@RequestParam(value = "url") String videoUrl){
+		try {
+			chapterService.updateChapter(chapterId, videoUrl);
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(new ResponseMessage("Chapter Updated Successfully"), HttpStatus.OK);
 	}
 }
