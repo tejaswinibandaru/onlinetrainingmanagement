@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Component("chapter")
 @Entity
 @Table(name = "chapter")
@@ -21,9 +23,9 @@ public class Chapter {
 	private Long chapterId;
 	@Column(name = "chapter_title")
 	private String chapterTitle;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "course_fk")
-	@Column(name = "course")
 	private Course course;
 	@Column(name="video_link")
 	private String videoUrl;
@@ -90,31 +92,6 @@ public class Chapter {
 
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((chapterId == null) ? 0 : chapterId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Chapter other = (Chapter) obj;
-		if (chapterId == null) {
-			if (other.chapterId != null)
-				return false;
-		} else if (!chapterId.equals(other.chapterId))
-			return false;
-		return true;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,7 +36,7 @@ public class User {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@Column(name = "courses")
+	@JoinColumn(name="user_fk")
 	private List<Course> courseList;
 	@Column(name = "delete_flag")
 	private String deleteFlag;
@@ -48,15 +49,14 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Long userId, String username, String userPassword, String email, String phoneNumber, String deleteFlag,
+	public User(String username, String userPassword, String email, String phoneNumber, String deleteFlag,List<Course>courseList,
 			String role, Boolean active) {
-		super();
-		this.userId = userId;
 		this.username = username;
 		this.userPassword = userPassword;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.deleteFlag = deleteFlag;
+		this.courseList=courseList;
 		this.role = role;
 		this.active = active;
 	}
@@ -133,16 +133,6 @@ public class User {
 
 	public void setActive(Boolean active) {
 		this.active = active;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.userId.intValue();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return this.hashCode()==obj.hashCode();
 	}
 
 	@Override

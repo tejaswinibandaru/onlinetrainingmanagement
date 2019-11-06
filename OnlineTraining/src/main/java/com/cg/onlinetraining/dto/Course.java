@@ -31,7 +31,6 @@ public class Course {
 	@Column(name = "course_name")
 	private String courseName;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "course",fetch = FetchType.EAGER)
-	@Column(name = "chapter_list")
 	private List<Chapter> chapterList;
 	@DateTimeFormat(pattern = "HH:mm")
 	@Column(name = "total_duration")
@@ -125,31 +124,6 @@ public class Course {
 
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Course other = (Course) obj;
-		if (courseId == null) {
-			if (other.courseId != null)
-				return false;
-		} else if (!courseId.equals(other.courseId))
-			return false;
-		return true;
 	}
 
 	@Override
