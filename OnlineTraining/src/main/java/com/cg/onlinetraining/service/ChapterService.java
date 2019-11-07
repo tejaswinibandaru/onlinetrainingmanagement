@@ -13,5 +13,6 @@ public interface ChapterService {
 	public Chapter updateChapter(Long chapterId,String videoUrl)throws OTMSException ;
 	public List<Chapter> viewAllChapters(Course course);
 	public Chapter viewByChapterTitle(String chapterTitle) throws OTMSException;
+	public Chapter bookmarkChapter(Long chapterId) throws OTMSException;
 
 }

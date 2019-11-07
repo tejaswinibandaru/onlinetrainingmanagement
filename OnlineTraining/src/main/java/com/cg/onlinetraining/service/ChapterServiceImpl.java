@@ -43,6 +43,7 @@ public class ChapterServiceImpl implements ChapterService {
 			throw new OTMSException("Chapter not found");
 		}
 		chapter.setDeleteFlag(1);
+		chapterRepository.save(chapter);
 		return 1;
 	}
 
@@ -73,6 +74,17 @@ public class ChapterServiceImpl implements ChapterService {
 			throw new OTMSException("Chapter title is empty");
 		}
 		return chapterRepository.findByChapterTitle(chapterTitle);
+	}
+
+	@Override
+	public Chapter bookmarkChapter(Long chapterId) throws OTMSException {
+		// TODO Auto-generated method stub
+		Chapter chapter=chapterRepository.findById(chapterId).get();
+		if(chapter==null) {
+			throw new OTMSException("Chapter not found");
+		}
+		chapter.setBookmarkFlag(1);
+		return chapter;
 	}
 
 }

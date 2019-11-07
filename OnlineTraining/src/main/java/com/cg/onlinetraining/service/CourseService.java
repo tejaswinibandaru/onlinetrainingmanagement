@@ -11,6 +11,8 @@ public interface CourseService {
 	public Integer removeCourse(Long courseId) throws OTMSException;
 	public Course viewCourseById(Long courseId) throws OTMSException;
 	public List<Course> viewAllCourses();
-	public List<Course> viewCourseByCategory(String category);
+	public List<Course> viewCourseByCategory(String category) throws OTMSException;
 	public List<Course> viewCourseByRegisterFlag(Integer registerFlag);
+	public List<String> getAllCategories();
+	public Course registerCourse(Long courseId) throws OTMSException;
 }

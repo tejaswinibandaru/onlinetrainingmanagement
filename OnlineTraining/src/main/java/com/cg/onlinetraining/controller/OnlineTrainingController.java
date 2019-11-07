@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.onlinetraining.dto.Chapter;
 import com.cg.onlinetraining.dto.Course;
 import com.cg.onlinetraining.dto.ResponseMessage;
+import com.cg.onlinetraining.exception.OTMSException;
 import com.cg.onlinetraining.service.ChapterService;
 import com.cg.onlinetraining.service.CourseService;
 
@@ -107,7 +108,8 @@ public class OnlineTrainingController {
 		return new ResponseEntity<>(new ResponseMessage("Chapter Deleted Successfully"), HttpStatus.OK);
 	}
 	
-	
+	@PutMapping(value = "/updatechapter")
+	@PreAuthorize(value = "hasRole('ADMIN')")
 	public ResponseEntity<?> updateChapter(@RequestParam(value = "chapterId") Long chapterId,@RequestParam(value = "url") String videoUrl){
 		try {
 			chapterService.updateChapter(chapterId, videoUrl);
@@ -117,5 +119,45 @@ public class OnlineTrainingController {
 			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(new ResponseMessage("Chapter Updated Successfully"), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/searchcourses")
+	@PreAuthorize(value = "hasRole('USER')")
+	public ResponseEntity<?> searchCoursesByCategory(@RequestParam(value = "category") String category){
+		List<Course> courses;
+		try {
+			courses=courseService.viewCourseByCategory(category);
+		} catch (OTMSException e) {
+			// TODO Auto-generated catch block
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(courses, HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/registercourse")
+	@PreAuthorize(value = "hasRole('USER')")
+	public ResponseEntity<?> registerCourse(@RequestParam(value = "courseId") Long courseId){
+		Course course;
+		try {
+			course=courseService.registerCourse(courseId);
+		} catch (OTMSException e) {
+			// TODO Auto-generated catch block
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(course, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> bookmarkChapter(@RequestParam(value = "chapterId") Long chapterId){
+		Chapter chapter;
+		try {
+			chapter=chapterService.bookmarkChapter(chapterId);
+		} catch (OTMSException e) {
+			// TODO Auto-generated catch block
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(chapter, HttpStatus.OK);
 	}
 }
