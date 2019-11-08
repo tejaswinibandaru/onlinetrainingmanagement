@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/register.component.css">
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><img src="../../assets/img/logo.png" id="logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <section id="main">
+            <div class="bg-image">
+            </div>
+            <div class="bg-text">
+                <section>
+                    <div *ngIf="isSignedUp; else signupForm">
+                        Your registration is successful. Please login!
+                    </div>
+
+                    <div style="width:100%;">
+                        <h2 style="text-align: center;">Register Form</h2>
+                        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" [(ngModel)]="form.username"
+                                    #username="ngModel" required />
+                                <div *ngIf="f.submitted && username.invalid">
+                                    <div *ngIf="username.errors.required">Username is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email" [(ngModel)]="form.email"
+                                    #email="ngModel" required email />
+                                <div *ngIf="f.submitted && email.invalid">
+                                    <div *ngIf="email.errors.required">Email is required</div>
+                                    <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="userPassword" [(ngModel)]="form.password"
+                                    #password="ngModel" required minlength="6" />
+                                <div *ngIf="f.submitted && password.invalid">
+                                    <div *ngIf="password.errors.required">Password is required</div>
+                                    <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="text" class="form-control" name="phoneNumber"
+                                    [(ngModel)]="form.phoneNumber" #phoneNumber="ngModel" required minlength="10" />
+                                <div *ngIf="f.submitted && phoneNumber.invalid">
+                                    <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
+                                    <div *ngIf="phoneNumber.errors.minlength">Phone Number must be of 10 digits</div>
+                                </div>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="admin"
+                                    value="ROLE_ADMIN" [(ngModel)]="form.role" #role="ngModel">
+                                <label class="form-check-label" for="admin">Admin</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="role" id="user"
+                                    value="ROLE_USER" [(ngModel)]="form.role" #role="ngModel">
+                                <label class="form-check-label" for="user">Customer</label>
+                            </div>
+                            <div class="form-group" style="text-align: center; padding-top:20px;">
+                                <button class="btn btn-primary">Register</button>
+                                <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
+                                    Signup failed!<br />{{errorMessage}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="footer">
+        <div class="row">
+            <div class="col-sm-4">
+                <nav class="nav flex-column nav-links">
+                    <a class="nav-link active" href="#">About us</a>
+                    <a class="nav-link" href="#">Gallery</a>
+                    <a class="nav-link" href="#">Courses</a>
+                    <a class="nav-link" href="#">Contact us</a>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="nav flex-column nav-links">
+                    <a class="nav-link active" href="#">Career</a>
+                    <a class="nav-link" href="#">Blogs</a>
+                    <a class="nav-link" href="#">Help Center</a>
+                    <a class="nav-link" href="#">Site map</a>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <img src="../../assets/img/logo.png" id="logo">
+            </div>
+        </div>
+        <p style="text-align: center;">
+            Copyright © 2019 EduCenter, Inc.
+        </p>
+    </div>
+    <div class="center">
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
