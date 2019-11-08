@@ -87,4 +87,14 @@ public class ChapterServiceImpl implements ChapterService {
 		return chapter;
 	}
 
+	@Override
+	public Chapter viewChapter(Long chapterId) throws OTMSException {
+		// TODO Auto-generated method stub
+		Chapter chapter=chapterRepository.findById(chapterId).get();
+		if(chapter==null) {
+			throw new OTMSException("Chapter Not Found");
+		}
+		return chapter;
+	}
+	
 }

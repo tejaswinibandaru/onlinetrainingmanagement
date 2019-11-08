@@ -14,5 +14,6 @@ public interface ChapterService {
 	public List<Chapter> viewAllChapters(Course course);
 	public Chapter viewByChapterTitle(String chapterTitle) throws OTMSException;
 	public Chapter bookmarkChapter(Long chapterId) throws OTMSException;
+	public Chapter viewChapter(Long chapterId) throws OTMSException;
 
 }

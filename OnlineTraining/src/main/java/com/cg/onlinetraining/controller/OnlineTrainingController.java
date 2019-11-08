@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +38,7 @@ public class OnlineTrainingController {
 	
 	@PostMapping(value = "/addcourse")
 	@PreAuthorize(value = "hasRole('ADMIN')")
-	public ResponseEntity<?> addCourse(@ModelAttribute Course course) {
+	public ResponseEntity<?> addCourse(@RequestBody Course course) {
 		try {
 			courseService.addCourse(course);
 		}catch (Exception e) {
@@ -48,7 +49,7 @@ public class OnlineTrainingController {
 	}
 	@PostMapping(value = "/addchapter")
 	@PreAuthorize(value = "hasRole('ADMIN')")
-	public ResponseEntity<?> addChapter(@ModelAttribute Chapter chapter,@RequestParam(value = "courseId")Long courseId){
+	public ResponseEntity<?> addChapter(@RequestBody Chapter chapter,@RequestParam(value = "courseId")Long courseId){
 		try {
 			chapter.setCourse(courseService.viewCourseById(courseId));
 			chapter.setDeleteFlag(0);
@@ -149,10 +150,23 @@ public class OnlineTrainingController {
 		return new ResponseEntity<>(course, HttpStatus.OK);
 	}
 	
+	@PutMapping(value = "/bookmarkchapter")
 	public ResponseEntity<?> bookmarkChapter(@RequestParam(value = "chapterId") Long chapterId){
 		Chapter chapter;
 		try {
 			chapter=chapterService.bookmarkChapter(chapterId);
+		} catch (OTMSException e) {
+			// TODO Auto-generated catch block
+			logger.error("Error occurred: "+e.getMessage());
+			return new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(chapter, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> viewChapter(@RequestParam(value = "chapterId") Long chapterId){
+		Chapter chapter;
+		try {
+			chapter=chapterService.viewChapter(chapterId);
 		} catch (OTMSException e) {
 			// TODO Auto-generated catch block
 			logger.error("Error occurred: "+e.getMessage());

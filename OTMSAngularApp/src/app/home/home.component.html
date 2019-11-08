@@ -3,7 +3,7 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -12,15 +12,50 @@
   </head>
   <body>
     <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><img src="../../assets/img/logo.png" id="logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/viewchapters">View chapters</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/viewchapters">View Chapters</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
         <ul class="nav justify-content-center" id="main-menu">
             <li class="nav-item">
               <a class="nav-link active" href="#">HOME</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">ABOUT US</a>
+              <a class="nav-link" href="#aboutus">ABOUT US</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">COURSES</a>
+              <a class="nav-link" href="#courses">COURSES</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">TEAM</a>
@@ -34,13 +69,94 @@
           <div class="bg-text">
               <h1>Welcome To EduCenter-School at your home</h1>
               <p class="section-text">Study at your own pace, anywhere, anytime</p>
-              <button class="btn btn-success btn-lg" data-toggle="modal" data-target="/login">LOGIN</button>
+              <button class="btn btn-success btn-lg" (click)='login()'>LOGIN</button>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <button class="btn btn-success btn-lg">SIGNUP</button>
+              <button class="btn btn-success btn-lg" (click)="register()">SIGNUP</button>
           </div>
       </section>
-
+      <section>
+          <div class="jumbotron" id="aboutus">
+              <h1 class="display-4">About us</h1>
+              <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+              <hr class="my-4">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                 sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                  mollit anim id est laborum.</p>
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+              </p>
+            </div>
+      </section>
+      <section>
+        <div class="jumbotron" id="courses">
+            <h1 class="display-4">Available Courses</h1>
+            <br>
+            <div id="course-cards" class="row">
+                <div class="col-sm-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../../assets/img/home/java_logo.jpg" alt="Card image cap" height="280" width="280">
+                        <div class="card-body">
+                          <h5 class="card-title">Java Fundamentals</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Register Course</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../../assets/img/home/spring_logo.png" alt="Card image cap" height="280" width="280">
+                        <div class="card-body">
+                          <h5 class="card-title">Spring Framework: Getting Started</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Register Course</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../../assets/img/home/angular_6_logo.jpg" alt="Card image cap" height="280" width="280">
+                        <div class="card-body">
+                          <h5 class="card-title">Angular Fundamentals</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Register Course</a>
+                        </div>
+                      </div>
+                </div>
+              </div>
+        </div>
+        
+      </section>
     </div>
+    <div class="footer">
+      <div class="row">
+          <div class="col-sm-4">
+              <nav class="nav flex-column nav-links">
+                  <a class="nav-link active" href="#">About us</a>
+                  <a class="nav-link" href="#">Gallery</a>
+                  <a class="nav-link" href="#">Courses</a>
+                  <a class="nav-link" href="#">Contact us</a>
+                </nav>
+          </div>
+          <div class="col-sm-4">
+              <nav class="nav flex-column nav-links">
+                  <a class="nav-link active" href="#">Career</a>
+                  <a class="nav-link" href="#">Blogs</a>
+                  <a class="nav-link" href="#">Help Center</a>
+                  <a class="nav-link" href="#">Site map</a>
+                </nav>
+          </div>
+          <div class="col-sm-4">
+            <img src="../../assets/img/logo.png" id="logo">
+          </div>
+      </div>
+      <p style="text-align: center;">
+          Copyright © 2019 EduCenter, Inc.
+      </p>
+      </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
