@@ -33,7 +33,7 @@ public class CourseServiceImpl implements CourseService{
 		if(courseRepository.existsByCourseName(course.getCourseName())) {
 			throw new OTMSException("Course Already Exists");
 		}
-		course.setEnrolledDate(LocalDate.now());
+		
 		course.setChapterList(course.getChapterList());
 		course.setDeleteFlag(0);
 		course.setRegisterFlag(0);

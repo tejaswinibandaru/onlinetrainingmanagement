@@ -13,6 +13,12 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Tejaswini
+ * Created On: 05/11/2019
+ * Description: Chapter Entity 
+ *
+ */
 @Component("chapter")
 @Entity
 @Table(name = "chapter")

@@ -1,5 +1,6 @@
 package com.cg.onlinetraining.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +43,11 @@ public class JwtAuthController {
 	@Autowired
 	JwtProvider jwtProvider;
 	
+	@Autowired
+	HttpSession session;	
+	
 	@PostMapping("/login")
-	  public ResponseEntity<?> authenticateUser(@Valid @ModelAttribute UserLoginForm loginRequest) {
+	  public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserLoginForm loginRequest) {
 	 
 	    Authentication authentication = authenticationManager.authenticate(
 	        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -58,7 +61,7 @@ public class JwtAuthController {
 	  }
 	
 	@PostMapping("/register")
-	  public ResponseEntity<?> registerUser(@Valid @ModelAttribute RegisterUserForm signUpRequest) {
+	  public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserForm signUpRequest) {
 	    if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 	      return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
 	          HttpStatus.BAD_REQUEST);

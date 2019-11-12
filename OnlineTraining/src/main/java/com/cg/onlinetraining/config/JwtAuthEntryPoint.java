@@ -12,6 +12,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Tejaswini
+ * Created On: 05/11/2019
+ * Description: Checks for Unauthorized access
+ *
+ */
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);

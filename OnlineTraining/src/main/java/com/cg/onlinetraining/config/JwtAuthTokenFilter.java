@@ -18,6 +18,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.cg.onlinetraining.service.UserDetailsServiceImpl;
 
+/**
+ * @author Tejaswini
+ * Created on: 05/11/2019
+ *
+ */
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
 	@Autowired

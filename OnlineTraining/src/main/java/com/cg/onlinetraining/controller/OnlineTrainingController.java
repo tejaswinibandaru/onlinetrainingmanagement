@@ -2,6 +2,8 @@ package com.cg.onlinetraining.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +38,16 @@ public class OnlineTrainingController {
 	@Autowired
 	ChapterService chapterService;
 	
+	@Autowired
+	HttpSession session;
+	
+	
+	/**
+	 * Description: Adding a course
+	 * @param Course
+	 * @return ResponseEntity
+	 */
 	@PostMapping(value = "/addcourse")
-	@PreAuthorize(value = "hasRole('ADMIN')")
 	public ResponseEntity<?> addCourse(@RequestBody Course course) {
 		try {
 			courseService.addCourse(course);
@@ -47,8 +57,13 @@ public class OnlineTrainingController {
 		}
 		return new ResponseEntity<>(new ResponseMessage("Course Added Successfully"), HttpStatus.OK);
 	}
+	/**
+	 * Description: Adding a chapter to a course
+	 * @param Chapter
+	 * @param Long
+	 * @return ResponseEntity
+	 */
 	@PostMapping(value = "/addchapter")
-	@PreAuthorize(value = "hasRole('ADMIN')")
 	public ResponseEntity<?> addChapter(@RequestBody Chapter chapter,@RequestParam(value = "courseId")Long courseId){
 		try {
 			chapter.setCourse(courseService.viewCourseById(courseId));
@@ -62,16 +77,24 @@ public class OnlineTrainingController {
 		return new ResponseEntity<>(new ResponseMessage("Chapter Added Successfully"), HttpStatus.OK);
 	}
 	
+	/**
+	 * Description: Listing all the added courses
+	 * @return ResponseEntity
+	 */
 	@GetMapping(value = "/viewallcourses")
-	@PreAuthorize(value = "hasRole('ADMIN')")
 	public ResponseEntity<?> viewAllCourses(){
 		List<Course> courses=courseService.viewAllCourses();
 		logger.info("Viewing the list of all courses");
 		return new ResponseEntity<>(courses, HttpStatus.OK);
 	}
 	
+	
+	/**
+	 * Description: Listing all the chapters of a particular course
+	 * @param Long
+	 * @return ResponseEntity
+	 */
 	@GetMapping(value = "/viewallchapters")
-	@PreAuthorize(value = "hasRole('ADMIN')")
 	public ResponseEntity<?> viewAllChapters(@RequestParam(value = "courseId") Long courseId){
 		List<Chapter> chapters;
 		try {
@@ -83,6 +106,11 @@ public class OnlineTrainingController {
 		return new ResponseEntity<>(chapters, HttpStatus.OK);
 	}
 	
+	/**
+	 * Description: Deleting the course
+	 * @param Long
+	 * @return ResponseEntity
+	 */
 	@PutMapping(value = "/deletecourse")
 	@PreAuthorize(value = "hasRole('ADMIN')")
 	public ResponseEntity<?> deleteCourse(@RequestParam(value = "courseId") Long courseId){

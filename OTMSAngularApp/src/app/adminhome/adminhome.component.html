@@ -29,40 +29,20 @@
                         <a class="nav-link" href="/adminhome">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/addcourse">Register Course</a>
+                        <a class="nav-link" href="/addcourse">Add course</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/viewallcourses">View All Courses</a>
+                        <a class="nav-link" href="/viewallcourses">View all courses</a>
                     </li>
-                    
+                    <li class="nav-item navbar-right">
+                        <a class="nav-link disabled" href="/logout"><button class="btn btn-danger">Logout</button></a>
+                    </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <a href="/logout">Logout</a>
-                </form>
             </div>
         </nav>
     </header>
     <div class="container-fluid">
-        <section id="main">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Chapter Id</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Video Link</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let chapter of chapters'>
-                        <td>{{chapter.chapterId}}</td>
-                        <td>{{chapter.chapterTitle}}</td>
-                        <td>{{chapter.videoUrl}}</td>
-                        <td><button class="btn btn-danger" (click)="deleteChapter(chapter.chapterId)"><i class="fa fa-play-circle" aria-hidden="true"></i>Play Video</button></td>
-                    </tr>    
-                </tbody>
-            </table>
-        </section>
+        
     </div>
     <br>
     <br>

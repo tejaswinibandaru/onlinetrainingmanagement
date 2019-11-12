@@ -1,7 +1,5 @@
 package com.cg.onlinetraining.dto;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,10 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component("course")
 @Entity
@@ -32,13 +27,8 @@ public class Course {
 	private String courseName;
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "course",fetch = FetchType.EAGER)
 	private List<Chapter> chapterList;
-	@DateTimeFormat(pattern = "HH:mm")
 	@Column(name = "total_duration")
-	private LocalTime totalDuration;
-	@JsonFormat(pattern = "dd-MM-yyyy")
-	@DateTimeFormat(pattern="dd-MM-yyyy")
-	@Column(name = "enrolled_date")
-	private LocalDate enrolledDate;
+	private String totalDuration;
 	@Column(name = "category")
 	private String category;
 	@Column(name = "register_flag")
@@ -50,13 +40,12 @@ public class Course {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Course(Long courseId, String courseName, List<Chapter> chapterList, LocalTime totalDuration,
-			LocalDate enrolledDate, String category, Integer registerFlag, Integer deleteFlag) {
+	public Course(Long courseId, String courseName, List<Chapter> chapterList, String totalDuration,
+			String category, Integer registerFlag, Integer deleteFlag) {
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.chapterList = chapterList;
 		this.totalDuration = totalDuration;
-		this.enrolledDate = enrolledDate;
 		this.category = category;
 		this.registerFlag = registerFlag;
 		this.deleteFlag = deleteFlag;
@@ -86,20 +75,12 @@ public class Course {
 		this.chapterList = chapterList;
 	}
 
-	public LocalTime getTotalDuration() {
+	public String getTotalDuration() {
 		return totalDuration;
 	}
 
-	public void setTotalDuration(LocalTime totalDuration) {
+	public void setTotalDuration(String totalDuration) {
 		this.totalDuration = totalDuration;
-	}
-
-	public LocalDate getEnrolledDate() {
-		return enrolledDate;
-	}
-
-	public void setEnrolledDate(LocalDate enrolledDate) {
-		this.enrolledDate = enrolledDate;
 	}
 
 	public String getCategory() {
@@ -129,7 +110,7 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", chapterList=" + chapterList
-				+ ", totalDuration=" + totalDuration + ", enrolledDate=" + enrolledDate + ", category=" + category
+				+ ", totalDuration=" + totalDuration + ", category=" + category
 				+ ", registerFlag=" + registerFlag + ", deleteFlag=" + deleteFlag + "]";
 	}
 	

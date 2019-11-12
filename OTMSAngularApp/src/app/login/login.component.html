@@ -14,6 +14,14 @@
 </head>
 
 <body>
+    <div *ngIf="isLoggedIn; else loggedOut" style="text-align: center;">
+        <div *ngIf="authority==='admin'">
+          <script>window.location.replace("/adminhome")</script>
+        </div>
+        <div *ngIf="authority==='user'">
+            <script>window.location.replace("/userhome")</script>
+          </div>
+      </div>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#"><img src="../../assets/img/logo.png" id="logo"></a>
@@ -59,14 +67,6 @@
       </div>
       <div class="bg-text">
         <section>
-          <div *ngIf="isLoggedIn; else loggedOut" style="text-align: center;">
-            <div *ngIf="authority === 'admin'">
-              Logged in as 'ADMIN'
-            </div>
-            <div *ngIf="authority === 'user'">
-              Logged in as 'USER'
-            </div>
-          </div>
           <div style="width: 100%">
             <h2 style="text-align: center;">Login Form</h2>
             <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
