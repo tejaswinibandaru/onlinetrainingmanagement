@@ -59,70 +59,39 @@
             </div>
             <div class="bg-text">
                 <section>
-                    <div *ngIf="isSignedUp; else signupForm">
-                        Your registration is successful. Please login!
-                    </div>
-
-                    <div style="width:100%;">
-                        <h2 style="text-align: center;">Register Form</h2>
-                        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" name="username" [(ngModel)]="form.username"
-                                    #username="ngModel" required />
-                                <div *ngIf="f.submitted && username.invalid">
-                                    <div *ngIf="username.errors.required">Username is required</div>
-                                </div>
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Search By Course Name">
                             </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" name="userPassword" [(ngModel)]="form.password"
-                                    #password="ngModel" required minlength="6" />
-                                <div *ngIf="f.submitted && password.invalid">
-                                    <div *ngIf="password.errors.required">Password is required</div>
-                                    <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
-                                </div>
+                            <div class="col">
+                                <button class="btn-btn success" (click)="searchCourses()">Search Courses</button>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" name="email" [(ngModel)]="form.email"
-                                    #email="ngModel" required email />
-                                <div *ngIf="f.submitted && email.invalid">
-                                    <div *ngIf="email.errors.required">Email is required</div>
-                                    <div *ngIf="email.errors.email">Email must be a valid email address</div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phoneNumber">Phone Number</label>
-                                <input type="text" class="form-control" name="phoneNumber"
-                                    [(ngModel)]="form.phoneNumber" #phoneNumber="ngModel" required minlength="10" />
-                                <div *ngIf="f.submitted && phoneNumber.invalid">
-                                    <div *ngIf="phoneNumber.errors.required">Phone number is required</div>
-                                    <div *ngIf="phoneNumber.errors.minlength">Phone Number must be of 10 digits</div>
-                                </div>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="role" id="admin"
-                                    value="ROLE_ADMIN" [(ngModel)]="form.role" #role="ngModel">
-                                <label class="form-check-label" for="admin">Admin</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="role" id="user"
-                                    value="ROLE_USER" [(ngModel)]="form.role" #role="ngModel">
-                                <label class="form-check-label" for="user">User</label>
-                            </div>
-                            <div class="form-group" style="text-align: center; padding-top:20px;">
-                                <button class="btn btn-primary">Register</button>
-                                <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
-                                    Signup failed!<br />{{errorMessage}}
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </section>
             </div>
         </section>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Course Id</td>
+                    <td>Course Name</td>
+                    <td>Course Duration</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of courses">
+                    <td>{{course.courseId}}</td>
+                    <td>{{course.courseName}}</td>
+                    <td>{{course.totalDuration}}</td>
+                    <td><button class="btn btn-primary" (click)="viewChapters(course.courseId)"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <br>
     <br>
